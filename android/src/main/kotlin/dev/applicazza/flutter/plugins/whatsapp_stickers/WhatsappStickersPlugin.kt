@@ -140,19 +140,24 @@ public class WhatsappStickersPlugin: FlutterPlugin, MethodCallHandler, ActivityA
   }
 
   override fun onDetachedFromActivity() {
-    this.activity = null
+    activity = null
+    context = null
+    result = null
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    this.activity = binding.activity
+    activity = null
+    binding.addActivityResultListener(this)
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-    this.activity = binding.activity
+    activity = binding.activity
+    context = binding.activity.applicationContext;
+    binding.addActivityResultListener(this)
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-    this.activity = null
+    activity = null
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
