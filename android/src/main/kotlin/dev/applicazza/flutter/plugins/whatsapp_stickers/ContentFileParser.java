@@ -24,14 +24,16 @@ class ContentFileParser {
     private static final int LIMIT_EMOJI_COUNT = 3;
 
     @NonNull
-    static List<StickerPack> parseStickerPacks(@NonNull InputStream contentsInputStream) throws IOException, IllegalStateException {
+    static List<StickerPack> parseStickerPacks(@NonNull InputStream contentsInputStream)
+            throws IOException, IllegalStateException {
         try (JsonReader reader = new JsonReader(new InputStreamReader(contentsInputStream))) {
             return readStickerPacks(reader);
         }
     }
 
     @NonNull
-    private static List<StickerPack> readStickerPacks(@NonNull JsonReader reader) throws IOException, IllegalStateException {
+    private static List<StickerPack> readStickerPacks(@NonNull JsonReader reader)
+            throws IOException, IllegalStateException {
         List<StickerPack> stickerPackList = new ArrayList<>();
         String androidPlayStoreLink = null;
         String iosAppStoreLink = null;
@@ -64,6 +66,7 @@ class ContentFileParser {
     @NonNull
     private static StickerPack readStickerPack(@NonNull JsonReader reader) throws IOException, IllegalStateException {
         reader.beginObject();
+
         String identifier = null;
         String name = null;
         String publisher = null;
@@ -137,7 +140,8 @@ class ContentFileParser {
             throw new IllegalStateException("image_data_version should not be empty");
         }
         reader.endObject();
-        final StickerPack stickerPack = new StickerPack(identifier, name, publisher, trayImageFile, publisherEmail, publisherWebsite, privacyPolicyWebsite, licenseAgreementWebsite, imageDataVersion, avoidCache);
+        final StickerPack stickerPack = new StickerPack(identifier, name, publisher, trayImageFile, publisherEmail,
+                publisherWebsite, privacyPolicyWebsite, licenseAgreementWebsite, imageDataVersion, avoidCache);
         stickerPack.setStickers(stickerList);
         return stickerPack;
     }
@@ -146,7 +150,6 @@ class ContentFileParser {
     private static List<Sticker> readStickers(@NonNull JsonReader reader) throws IOException, IllegalStateException {
         reader.beginArray();
         List<Sticker> stickerList = new ArrayList<>();
-
         while (reader.hasNext()) {
             reader.beginObject();
             String imageFile = null;
@@ -171,7 +174,8 @@ class ContentFileParser {
                 throw new IllegalStateException("sticker image_file cannot be empty");
             }
             if (!imageFile.endsWith(".webp")) {
-                throw new IllegalStateException("image file for stickers should be webp files, image file is: " + imageFile);
+                throw new IllegalStateException(
+                        "image file for stickers should be webp files, image file is: " + imageFile);
             }
             stickerList.add(new Sticker(imageFile, emojis));
         }

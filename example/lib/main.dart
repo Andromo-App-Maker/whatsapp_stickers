@@ -87,7 +87,8 @@ Future installFromAssets() async {
   );
 
   stickers.forEach((sticker, emojis) {
-    stickerPack.addSticker(WhatsappStickerImage.fromAsset('assets/$sticker'), emojis);
+    stickerPack.addSticker(
+        WhatsappStickerImage.fromAsset('assets/$sticker'), emojis);
   });
 
   try {
@@ -99,7 +100,8 @@ Future installFromAssets() async {
 
 Future installFromRemote() async {
   var applicationDocumentsDirectory = await getApplicationDocumentsDirectory();
-  var stickersDirectory = Directory('${applicationDocumentsDirectory.path}/stickers');
+  var stickersDirectory =
+      Directory('${applicationDocumentsDirectory.path}/stickers');
   await stickersDirectory.create(recursive: true);
 
   final dio = Dio();
@@ -127,7 +129,9 @@ Future installFromRemote() async {
   );
 
   stickers.forEach((sticker, emojis) {
-    stickerPack.addSticker(WhatsappStickerImage.fromFile('${stickersDirectory.path}/$sticker'), emojis);
+    stickerPack.addSticker(
+        WhatsappStickerImage.fromFile('${stickersDirectory.path}/$sticker'),
+        emojis);
   });
 
   try {

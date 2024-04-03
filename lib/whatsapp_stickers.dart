@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'exceptions.dart';
 
 class WhatsappStickers {
-  static const MethodChannel _channel = const MethodChannel('whatsapp_stickers');
+  static const MethodChannel _channel = MethodChannel('whatsapp_stickers');
 
-  final Map<String, List<String>> _stickers = Map<String, List<String>>();
+  final Map<String, List<String>> _stickers = {};
 
   final String identifier;
   final String name;
@@ -14,6 +15,7 @@ class WhatsappStickers {
   String? publisherWebsite;
   String? privacyPolicyWebsite;
   String? licenseAgreementWebsite;
+  String imageDataVersion;
 
   WhatsappStickers({
     required this.identifier,
@@ -23,12 +25,12 @@ class WhatsappStickers {
     this.publisherWebsite,
     this.privacyPolicyWebsite,
     this.licenseAgreementWebsite,
+    this.imageDataVersion = "1",
   });
 
   void addSticker(WhatsappStickerImage image, List<String> emojis) {
     _stickers[image.path] = emojis;
   }
-
 
   Future<void> checkTrayImageSize() async {
     final path = trayImageFileName.path.split('//')[1];
@@ -38,7 +40,8 @@ class WhatsappStickers {
       byteData.lengthInBytes,
     ));
     if (decodedImage.width != 96 || decodedImage.height != 96) {
-      throw WhatsappStickersIncorrectSizeTrayImageException('INCORRECT_SIZE_TRAY_IMAGE');
+      throw WhatsappStickersIncorrectSizeTrayImageException(
+          'INCORRECT_SIZE_TRAY_IMAGE');
     }
   }
 
@@ -53,32 +56,37 @@ class WhatsappStickers {
       payload['publisherWebsite'] = publisherWebsite;
       payload['privacyPolicyWebsite'] = privacyPolicyWebsite;
       payload['licenseAgreementWebsite'] = licenseAgreementWebsite;
+      payload['imageDataVersion'] = imageDataVersion;
       payload['stickers'] = _stickers;
       await _channel.invokeMethod('sendToWhatsApp', payload);
     } on PlatformException catch (e) {
-      switch (e.code) {
-        case WhatsappStickersFileNotFoundException.CODE:
+      switch (e.code.toUpperCase()) {
+        case WhatsappStickersFileNotFoundException.code:
           throw WhatsappStickersFileNotFoundException(e.message);
-        case WhatsappStickersNumOutsideAllowableRangeException.CODE:
+        case WhatsappStickersNumOutsideAllowableRangeException.code:
           throw WhatsappStickersNumOutsideAllowableRangeException(e.message);
-        case WhatsappStickersUnsupportedImageFormatException.CODE:
+        case WhatsappStickersUnsupportedImageFormatException.code:
           throw WhatsappStickersUnsupportedImageFormatException(e.message);
-        case WhatsappStickersImageTooBigException.CODE:
+        case WhatsappStickersImageTooBigException.code:
           throw WhatsappStickersImageTooBigException(e.message);
-        case WhatsappStickersIncorrectImageSizeException.CODE:
+        case WhatsappStickersIncorrectImageSizeException.code:
           throw WhatsappStickersIncorrectImageSizeException(e.message);
-        case WhatsappStickersAnimatedImagesNotSupportedException.CODE:
+        case WhatsappStickersAnimatedImagesNotSupportedException.code:
           throw WhatsappStickersAnimatedImagesNotSupportedException(e.message);
-        case WhatsappStickersTooManyEmojisException.CODE:
+        case WhatsappStickersTooManyEmojisException.code:
           throw WhatsappStickersTooManyEmojisException(e.message);
-        case WhatsappStickersEmptyStringException.CODE:
+        case WhatsappStickersEmptyStringException.code:
           throw WhatsappStickersEmptyStringException(e.message);
-        case WhatsappStickersStringTooLongException.CODE:
+        case WhatsappStickersStringTooLongException.code:
           throw WhatsappStickersStringTooLongException(e.message);
-        case WhatsappStickersIncorrectSizeTrayImageException.CODE:
+        case WhatsappStickersIncorrectSizeTrayImageException.code:
           throw WhatsappStickersIncorrectSizeTrayImageException(e.message);
+        case WhatsappStickersAlreadyAddedException.code:
+          throw WhatsappStickersAlreadyAddedException(e.message);
+        case WhatsappStickersCancelledException.code:
+          throw WhatsappStickersCancelledException(e.message);
         default:
-          throw WhatsappStickersException(e.message);
+          rethrow;
       }
     }
   }

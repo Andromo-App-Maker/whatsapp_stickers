@@ -17,12 +17,13 @@ public class InvalidPackException extends Exception {
     public static String FAILED = "FAILED";
 
     private String code;
-    InvalidPackException(String code, String message){
+
+    InvalidPackException(String code, String message) {
         super(message);
         this.code = code;
     }
 
-    String getCode(){
+    String getCode() {
         return this.code;
     }
 

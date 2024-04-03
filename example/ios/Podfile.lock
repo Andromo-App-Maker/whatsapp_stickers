@@ -1,64 +1,51 @@
 PODS:
   - Flutter (1.0.0)
-  - libwebp (1.1.0):
-    - libwebp/demux (= 1.1.0)
-    - libwebp/mux (= 1.1.0)
-    - libwebp/webp (= 1.1.0)
-  - libwebp/demux (1.1.0):
+  - libwebp (1.2.3):
+    - libwebp/demux (= 1.2.3)
+    - libwebp/mux (= 1.2.3)
+    - libwebp/webp (= 1.2.3)
+  - libwebp/demux (1.2.3):
     - libwebp/webp
-  - libwebp/mux (1.1.0):
+  - libwebp/mux (1.2.3):
     - libwebp/demux
-  - libwebp/webp (1.1.0)
-  - path_provider (0.0.1):
+  - libwebp/webp (1.2.3)
+  - path_provider_ios (0.0.1):
     - Flutter
-  - path_provider_linux (0.0.1):
+  - SDWebImage/Core (5.13.4)
+  - SDWebImageWebPCoder (0.9.1):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.13)
+  - whatsapp_stickers_plus (1.0.0):
     - Flutter
-  - path_provider_macos (0.0.1):
-    - Flutter
-  - whatsapp_stickers (1.0.0):
-    - Flutter
-    - libwebp
-    - YYImage
-    - YYImage/WebP
-  - YYImage (1.0.4):
-    - YYImage/Core (= 1.0.4)
-  - YYImage/Core (1.0.4)
-  - YYImage/WebP (1.0.4):
-    - YYImage/Core
+    - SDWebImageWebPCoder
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - path_provider (from `.symlinks/plugins/path_provider/ios`)
-  - path_provider_linux (from `.symlinks/plugins/path_provider_linux/ios`)
-  - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
-  - whatsapp_stickers (from `.symlinks/plugins/whatsapp_stickers/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - whatsapp_stickers_plus (from `.symlinks/plugins/whatsapp_stickers_plus/ios`)
 
 SPEC REPOS:
   trunk:
     - libwebp
-    - YYImage
+    - SDWebImage
+    - SDWebImageWebPCoder
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  path_provider:
-    :path: ".symlinks/plugins/path_provider/ios"
-  path_provider_linux:
-    :path: ".symlinks/plugins/path_provider_linux/ios"
-  path_provider_macos:
-    :path: ".symlinks/plugins/path_provider_macos/ios"
-  whatsapp_stickers:
-    :path: ".symlinks/plugins/whatsapp_stickers/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
+  whatsapp_stickers_plus:
+    :path: ".symlinks/plugins/whatsapp_stickers_plus/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  path_provider_linux: 4d630dc393e1f20364f3e3b4a2ff41d9674a84e4
-  path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
-  whatsapp_stickers: 32c643e54951d83630d92f326c8dfc75b9bc29c9
-  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  libwebp: 60305b2e989864154bd9be3d772730f08fc6a59c
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  SDWebImage: e5cc87bf736e60f49592f307bdf9e157189298a3
+  SDWebImageWebPCoder: 18503de6621dd2c420d680e33d46bf8e1d5169b0
+  whatsapp_stickers_plus: 8e16bf2dae5b11db8fd09ad38275364ca3ec3ef8
 
-PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
+PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.11.3

@@ -7,27 +7,25 @@
 //
 
 import UIKit
+import SDWebImageWebPCoder
 
 class WebPManager {
 
     static let shared: WebPManager = WebPManager()
 
     func isAnimated(webPData data: Data) -> Bool {
-        guard let decoder = YYImageDecoder(data: data, scale: 1.0) else { return false }
-
-        return decoder.frameCount > 1
+        guard let duration = self.decode(webPData: data)?.duration else {
+            return false
+        }
+        
+        return duration > 0
     }
-
+    
     func decode(webPData data: Data) -> UIImage? {
-        guard let decoder = YYImageDecoder(data: data, scale: 1.0) else { return nil }
-
-        return decoder.frame(at: 0, decodeForDisplay: true)?.image
+        return SDImageWebPCoder.shared.decodedImage(with: data, options: nil)
     }
 
     func encode(pngData data: Data) -> Data? {
-        guard let encoder = YYImageEncoder(type: YYImageType.webP) else { return nil }
-
-        encoder.addImage(with: data, duration: 0.0)
-        return encoder.encode()
+        return SDImageWebPCoder.shared.encodedData(with: UIImage(data: data), format: .webP)
     }
 }

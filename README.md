@@ -28,9 +28,9 @@ Do not forget to add following entry to ```Info.plist``` with ```Runner``` targe
 
 ```xml
 <key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>whatsapp</string>
-	</array>
+ <array>
+  <string>whatsapp</string>
+ </array>
 ```
 
 ## Examples

@@ -193,7 +193,6 @@ class StickerPack {
                 if let imageData = sticker.imageData.webpData {
                     stickerDict["image_data"] = imageData.base64EncodedString()
                 } else {
-                    print("Skipping bad sticker data")
                     continue
                 }
 
