@@ -36,6 +36,10 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
+    if (project.android.hasProperty("namespace")) {
+        namespace("dev.applicazza.flutter.plugins.whatsapp_stickers")
+    }
 }
 
 dependencies {
